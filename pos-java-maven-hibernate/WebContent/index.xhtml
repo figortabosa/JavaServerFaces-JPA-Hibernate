@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+	  xmlns:p="http://primefaces.org/ui"
+	  xmlns:h="http://java.sun.com/jsf/html">
+
+<h:head></h:head>
+
+<h:body>
+
+	<h:link value="Pagina JSF" outcome="index.jsf"/>
+	<h:link value="Pagina Primefaces" outcome="primefaces.jsf"/>
+
+	<h:form id="fomulario">
+	
+		<h:messages showDetail="true" showSummary="false" id="msg"/>
+		<h:panelGrid columns="2">
+		<h:outputLabel>Id:</h:outputLabel>
+		<h:inputText readonly="true"
+			value="#{usuarioPessoaManageBean.usuarioPessoa.id}"/>
+			
+		<h:outputLabel>Nome:</h:outputLabel>
+		<h:inputText value="#{usuarioPessoaManageBean.usuarioPessoa.nome}" required="true" requiredMessage="Informe um nome!" pt:placeholder="informe um nome"/>
+		
+		<h:outputLabel>Sobrenome:</h:outputLabel>
+		<h:inputText value="#{usuarioPessoaManageBean.usuarioPessoa.sobrenome}"/>
+		
+		<h:outputLabel>Email:</h:outputLabel>
+		<h:inputText value="#{usuarioPessoaManageBean.usuarioPessoa.email}"/>
+		
+		<h:outputLabel>Idade:</h:outputLabel>
+		<h:inputText value="#{usuarioPessoaManageBean.usuarioPessoa.idade}"/>
+		
+		<h:outputLabel>Sexo:</h:outputLabel>
+		<h:selectOneMenu value="#{usuarioPessoaManageBean.usuarioPessoa.sexo}">
+			<f:selectItem itemValue="MASCULINO"/>
+			<f:selectItem itemValue="FEMININO"/>
+		</h:selectOneMenu>
+		
+		<h:outputLabel>Cep</h:outputLabel>
+				<h:inputText value="#{usuarioPessoaManageBean.usuarioPessoa.cep}">
+					<f:ajax event="blur" execute="@this" listener="#{usuarioPessoaManageBean.pesquisarCep}"
+					 render="logradouro complemento bairro localidade uf unidade ibge gia"/>
+				</h:inputText>
+				
+				<h:outputLabel>Logradouro</h:outputLabel>
+				<h:inputText value="#{usuarioPessoaManageBean.usuarioPessoa.logradouro}" id="logradouro"/>
+				
+				<h:outputLabel>Complemento</h:outputLabel>
+				<h:inputText value="#{usuarioPessoaManageBean.usuarioPessoa.complemento}" id="complemento"/>
+				
+				<h:outputLabel>bairro</h:outputLabel>
+				<h:inputText value="#{usuarioPessoaManageBean.usuarioPessoa.bairro}" id="bairro"/>
+				
+				<h:outputLabel>Localidade</h:outputLabel>
+				<h:inputText value="#{usuarioPessoaManageBean.usuarioPessoa.localidade}" id="localidade"/>
+				
+				<h:outputLabel>Uf</h:outputLabel>
+				<h:inputText value="#{usuarioPessoaManageBean.usuarioPessoa.uf}" id="uf"/>
+				
+				<h:outputLabel>Unidade</h:outputLabel>
+				<h:inputText value="#{usuarioPessoaManageBean.usuarioPessoa.unidade}" id="unidade"/>
+				
+				<h:outputLabel>IBGE</h:outputLabel>
+				<h:inputText value="#{usuarioPessoaManageBean.usuarioPessoa.ibge}" id="ibge"/>
+				
+				<h:outputLabel>gia</h:outputLabel>
+				<h:inputText value="#{usuarioPessoaManageBean.usuarioPessoa.gia}" id="gia"/>
+		
+		<h:outputLabel>Login:</h:outputLabel>
+		<h:inputText value="#{usuarioPessoaManageBean.usuarioPessoa.login}"/>
+		
+		<h:outputLabel>Senha:</h:outputLabel>
+		<h:inputSecret value="#{usuarioPessoaManageBean.usuarioPessoa.senha}"/>	
+		</h:panelGrid>
+			<h:commandButton value="Salvar" action="#{usuarioPessoaManageBean.salvar}"/>
+			<h:commandButton value="Novo" action="#{usuarioPessoaManageBean.Novo}"/>
+			</h:form>
+			
+			<h:form id="formeTable">
+			<h:dataTable value="#{usuarioPessoaManageBean.list}" var="user" cellpadding="15" border="1">
+			<f:facet name="header"> Lista De Usuários</f:facet>
+			
+				<h:column>
+				<f:facet name="header">Id</f:facet>
+				<h:outputText value="#{user.id}"/>
+				</h:column>
+				
+				<h:column>
+					<f:facet name="header">Nome</f:facet>
+					<h:outputText value="#{user.nome}"/>
+				</h:column>
+				
+				<h:column>
+				<f:facet name="header">Sobrenome</f:facet>
+					<h:outputText value="#{user.sobrenome}"/>
+				</h:column>
+				
+				<h:column>
+				<f:facet name="header">Email</f:facet>
+					<h:outputText value="#{user.email}"/>
+				</h:column>
+				
+				<h:column>
+				<f:facet name="header">Login</f:facet>
+					<h:outputText value="#{user.login}"/>
+				</h:column>
+				
+				<h:column>
+				<f:facet name="header">Idade</f:facet>
+					<h:outputText value="#{user.idade}"/>
+				</h:column>
+				
+				<h:column>
+				<f:facet name="header">Editar</f:facet>
+				<h:commandLink immediate="true" id="botaoEditar">
+				<f:setPropertyActionListener value="#{user}" target="#{usuarioPessoaManageBean.usuarioPessoa}"/>
+				<h:graphicImage url="resources/img/icone_editar.png"/>
+				
+				</h:commandLink>
+				</h:column>
+				
+				<h:column>
+				<f:facet name="header"> Remover</f:facet>
+				<h:commandLink immediate="true"
+				 action="#{usuarioPessoaManageBean.remover}" id="botaoremover" >
+				<h:graphicImage url="resources/img/icone_excluir.png"/>
+				<f:setPropertyActionListener value="#{user}" target="#{usuarioPessoaManageBean.usuarioPessoa}"/>
+				</h:commandLink>
+				</h:column>
+				
+				<h:column>
+					<f:facet name="header">Telefones</f:facet>
+					<h:commandLink immediate="true" 
+					action="telefone.jsf" id="botaofone">
+					<h:graphicImage url="resources/img/telefone.png" width="35" height="35"/>
+					<f:param name="codigouser" value="#{user.id}"/>
+					</h:commandLink>
+				</h:column>
+			</h:dataTable>
+	</h:form>
+
+</h:body>
+
+
+</html>

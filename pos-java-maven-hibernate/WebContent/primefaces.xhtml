@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+
+</h:head>
+
+<h:body>
+<h:form>
+		<p:breadCrumb>
+		<p:menuitem/>
+			<p:menuitem value="Pagina JSF" action="index.jsf"/>
+			<p:menuitem value="Pagina Primefaces" action="primefaces.jsf"/>
+		</p:breadCrumb>
+		
+	</h:form>
+	
+	<h3>Cadastro de Pessoas</h3>
+	<p:panelGrid columns="4" layout="tabular" columnClasses="p-md-3">
+		<p:outputLabel>Nome:</p:outputLabel>
+		<p:inputText value="#{usuarioPessoaManageBean.usuarioPessoa.nome}"/>
+	
+	
+	</p:panelGrid>
+	
+</h:body>
+
+
+</html>
